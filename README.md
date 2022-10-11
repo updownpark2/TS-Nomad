@@ -190,3 +190,37 @@ const FGH: Player<number> = {
   extroinfo: 12, // 이게 또 가능해진다 그니까 재사용이 좋아진다.
 };
 ```
+## interface
+type과 거의 비슷하다 , 다른점: 오브젝트형태의 타입만을 설명할 수 있다.
+```TS
+type Team={
+name:string,
+age:number
+}//이것두되고
+
+type Team2 ={
+name:"sangha"|"haha",
+age:12|23
+}
+//이렇게 값을 제한할수도있다.
+
+//interface
+interface Team{
+name:string,
+age:number
+}
+
+```
+인터페이스틑 오브젝트의 타입을 설명할 때 사용한다고 보면된다. 또 인터페이스는 상속이 가능하다.
+
+```TS
+interface User {
+  name: string;
+}
+
+interface User2 extends User {}
+//상속이가능하다
+const nicoo: User2 = {
+  name: "nico",
+};
+```

@@ -1,7 +1,129 @@
 # TS-Nomad
  노마드코더 TS 
-# TS_Study
-노마드코더 타입스크립트
+
+
+### 타입스크립트는 강타입 프로그래밍 언어로 코드를 실행하기 전에 오류를 알려준다.
+
+타입스크립트에서 타입을 정의해주는 방법은 크게 두 가지가 있다.
+
+1. 데이터와 변수의 타입을 명시적으로 정의
+```TS
+const arr:string = ""
+
+```
+2. 데이터와 변수의 타입이 추론되어 자동으로 정의됨
+```TS
+const arr ="" //=>string으로 자동인식
+```
+*명시적 정의는 적을수록 좋다*
+Type을 설명할 때 기본은 : 로 설명한다.
+
+```TS
+const :{name:string, age:number}   ={
+name:"sangha"
+age:26
+}
+```
+
+type을 지정하는 방법 중 Alias 가 있다.
+
+```TS
+type CanCan{
+name:string,
+age?:number//?를 붙이면 number|undefined로 정의된다. 즉 없을 수 도 있다는 말
+
+
+const wow : CanCan= { //이렇게 타입을 정의해주는 방법이 Alias
+name:"sangha",
+age:26
+
+}
+
+}
+```
+
+타입앞에 readonly를 붙여주면 수정이 안되게 해준다.
+```TS
+const arr:readonly number[] =[1,2,3]
+
+arr.push(4) //이러면 오류가 남 readonly를 붙여줘서 수정이 불가능하기 때문이다.
+```
+
+## any
+
+이는 비어있는 값을 쓰면 주로 나온다. 타입스크립트를 벗어나고 싶을 때 쓰면 된다.
+자주쓰는것은 지양해야한다.
+
+## unknown , void , never
+
+### unknown 
+unknown은 TS의 보호를 받는다. 
+```TS
+let a: unknown; //TS의 보호를받음 => 어떤 작업을 하려면 이 변수의 타입을 먼저 확인해야함
+let b = a + 1;
+if (typeof a === "number") {
+  let b = a + 1;
+} //타입에 따른 결과가 다를때 이렇게 사용
+
+```
+이렇게 unknown은 아직 타입에 대한 정보를 확신할 수 없을때 사용하면된다.
+
+### void
+
+void는 아무것도 return 하지않는함수에 쓰인다.
+```TS
+function hello(): void {
+  console.log("x");
+}
+const c = hello();
+
+//만약
+c.toUpperCase()//오류발생
+
+```
+return 값이 없기 때문이다.(void)
+
+## never
+never은 함수가 절대 return 하지 않을 때 발생한다.
+```TS
+function EEE(): never {
+  throw new Error("오류!");
+}
+//이렇게 절대 return 값이 없을 때 사용
+
+```
+ ## call signature
+ 함수에서 타입을 분리할 수 있게해준다.
+ ```TS
+ type ADD = (a: number, b: number) => number;//이게 call signature
+ //이를 call signuture라고한다. 분리가가능!
+const add: ADD = (a, b) => a + b;
+//원래
+ const add=(a:string,b:string)=>{console.log("asd"}
+ ```
+ ## overloading 
+ 이는 call signature가 2개 이상일 때이다.
+ 
+ ```TS
+ type Call={
+ (a:string,b:string):string
+ (a:number,b:number):number
+ }//이처럼 call signature가 2개 이상 사용될 때 overloading 이라한다.
+```
+ ## 다형성(polymorphism)
+ 인자의 타입이 다양한 형태를 가질때
+Generic타입!
+ 
+```TS
+type SuperPrint = {
+  <Placeholder>(arr: Placeholder[]): void;
+};
+const superPrint: SuperPrint = (arr) => {
+  arr.forEach((i) => console.log(i));
+};
+superPrint([1, 2, 3, 4]);//이렇게하면 함수 안의 인자에 따라 arr의 타입이 변경된다.
+   //any와 다른점은 인자의 타입에 대한 정보를 잃지 않는다는 점이다.
+```
 
  ## 다형성(polymorphism
  ```TS
